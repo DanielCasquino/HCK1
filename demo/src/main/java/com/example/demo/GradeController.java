@@ -18,6 +18,9 @@ public class GradeController {
     @Autowired
     private GradeRepository gradeRepository;
 
+    @Autowired
+    private AlumnoRepository alumnoRepository;
+
     @GetMapping
     public ResponseEntity<List<Grade>> grades() {
         List<Grade> grades = gradeRepository.findAll();
@@ -30,6 +33,13 @@ public class GradeController {
         return new ResponseEntity<>(query.get(), HttpStatus.OK);
     }
 
-    // @GetMapping("/alumno/{id}")
-    // public ResponseEntity<>
+    @GetMapping("/alumno/{id}")
+    public ResponseEntity<List<Grade>> getAlumnoGrades(@PathVariable Long id) {
+        Optional<Alumno> query = alumnoRepository.findById(id);
+        if (query.isPresent()) {
+            return new ResponseEntity<>(query.get().getGrades(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
