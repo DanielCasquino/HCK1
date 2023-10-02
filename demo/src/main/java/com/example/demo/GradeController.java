@@ -12,21 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/alumnos")
-public class AlumnoController {
+@RequestMapping("/grades")
+public class GradeController {
 
     @Autowired
-    private AlumnoRepository alumnoRepository;
+    private GradeRepository gradeRepository;
 
     @GetMapping
-    public ResponseEntity<List<Alumno>> alumnos() {
-        List<Alumno> alumnos = alumnoRepository.findAll();
-        return new ResponseEntity<>(alumnos, HttpStatus.OK);
+    public ResponseEntity<List<Grade>> grades() {
+        List<Grade> grades = gradeRepository.findAll();
+        return new ResponseEntity<>(grades, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Alumno> getAlumnos(@PathVariable Long id) {
-        Optional<Alumno> query = alumnoRepository.findById(id);
+    public ResponseEntity<Grade> getGrades(@PathVariable Long id) {
+        Optional<Grade> query = gradeRepository.findById(id);
         return new ResponseEntity<>(query.get(), HttpStatus.OK);
     }
+
+    // @GetMapping("/alumno/{id}")
+    // public ResponseEntity<>
 }
